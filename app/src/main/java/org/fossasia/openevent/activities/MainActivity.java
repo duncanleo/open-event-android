@@ -235,6 +235,11 @@ public class MainActivity extends BaseActivity {
     private void doMenuAction(int menuItemId) {
         FragmentManager fragmentManager = getSupportFragmentManager();
         switch (menuItemId) {
+            case R.id.nav_schedule:
+                fragmentManager.beginTransaction()
+                        .replace(R.id.content_frame, new SessionFragment(), FRAGMENT_TAG).commit();
+                getSupportActionBar().setTitle(R.string.menu_schedule);
+                break;
             case R.id.nav_tracks:
                 fragmentManager.beginTransaction()
                         .replace(R.id.content_frame, new TracksFragment(), FRAGMENT_TAG).commit();

@@ -1,11 +1,15 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <group android:checkableBehavior="single">
+        <!--TODO: Add schedule icon and string constant-->
+        <item
+            android:id="@+id/nav_schedule"
+            android:icon="@drawable/ic_launcher"
+            android:title="@string/menu_schedule"/>
         <item
             android:id="@+id/nav_tracks"
             android:checked="true"
             android:icon="@drawable/ic_event_grey600_24dp"
             android:title="@string/menu_tracks"/>
-
         <item
             android:id="@+id/nav_bookmarks"
             android:icon="@drawable/ic_bookmark_grey600_24dp"
