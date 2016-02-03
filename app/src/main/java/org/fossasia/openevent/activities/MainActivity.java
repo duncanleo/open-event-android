@@ -285,6 +285,12 @@ public class MainActivity extends BaseActivity {
                     }
                 });
                 mDrawerLayout.closeDrawers();
+                break;
+            case R.id.nav_about:
+                fragmentManager.beginTransaction()
+                        .replace(R.id.content_frame, new AboutFragment(), FRAGMENT_TAG).commit();
+                getSupportActionBar().setTitle(R.string.menu_about);
+                break;
         }
         currentMenuItemId = menuItemId;
         mDrawerLayout.closeDrawers();
