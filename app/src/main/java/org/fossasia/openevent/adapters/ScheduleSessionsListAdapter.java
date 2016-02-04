@@ -105,4 +105,11 @@ public class ScheduleSessionsListAdapter extends BaseRVAdapter<Session, Schedule
 
         }
     }
+
+    public void refresh() {
+        Timber.d("Refreshing tracks from db");
+        DbSingleton dbSingleton = DbSingleton.getInstance();
+        clear();
+        animateTo(dbSingleton.getSessionList());
+    }
 }
