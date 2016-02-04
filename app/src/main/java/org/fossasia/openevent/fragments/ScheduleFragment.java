@@ -1,6 +1,6 @@
 package org.fossasia.openevent.fragments;
 
-import android.content.Intent;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.TabLayout;
@@ -9,6 +9,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.MenuItemCompat;
 import android.support.v4.view.ViewPager;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.SearchView;
 import android.text.TextUtils;
 import android.util.SparseArray;
@@ -18,11 +19,17 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.ListView;
 
 import org.fossasia.openevent.OpenEventApp;
 import org.fossasia.openevent.R;
 import org.fossasia.openevent.adapters.ScheduleSessionsListAdapter;
-import org.fossasia.openevent.api.Urls;
+import org.fossasia.openevent.data.Track;
+import org.fossasia.openevent.dbutils.DbSingleton;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import timber.log.Timber;
 
@@ -123,7 +130,71 @@ public class ScheduleFragment extends Fragment implements SearchView.OnQueryText
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.action_filter_schedule:
-                System.out.println("Filter i shall!");
+                final List<Integer> selectedTracks = new ArrayList<>();
+                final List<Track> trackList = DbSingleton.getInstance().getTrackList();
+                String[] trackNames = new String[trackList.size()];
+                for (int i = 0; i < trackList.size(); i++) {
+                    trackNames[i] = trackList.get(i).getName();
+                }
+                AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+                builder.setTitle(R.string.filter_sessions)
+                        .setMultiChoiceItems(trackNames, null, new DialogInterface.OnMultiChoiceClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which, boolean isChecked) {
+                                if (isChecked) {
+                                    selectedTracks.add(trackList.get(which).getId());
+                                } else {
+                                    selectedTracks.remove(Integer.valueOf(trackList.get(which).getId()));
+                                }
+                            }
+                        })
+                        .setNeutralButton(R.string.select_none, null)
+                        .setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                //TODO: Filter the results based on the tracks
+                            }
+                        })
+                        .setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                dialog.dismiss();
+                            }
+                        });
+                final AlertDialog dialog = builder.create();
+
+                //Set the neutral button
+                //Using this complicated method as neutral button will by default dismiss dialog
+                //Neutral button here is the toggle all button
+                dialog.setOnShowListener(new DialogInterface.OnShowListener() {
+                    ListView listView;
+                    Button neutral;
+
+                    @Override
+                    public void onShow(DialogInterface d) {
+                        listView = dialog.getListView();
+                        neutral = dialog.getButton(AlertDialog.BUTTON_NEUTRAL);
+                        setCheckedAll(true);
+                        neutral.setOnClickListener(new View.OnClickListener() {
+                            boolean isAllSelected = true;
+
+                            @Override
+                            public void onClick(View v) {
+                                isAllSelected = !isAllSelected;
+                                setCheckedAll(isAllSelected);
+                            }
+                        });
+                    }
+
+                    //Check/Un-check all the options
+                    private void setCheckedAll(boolean isChecked){
+                        for (int j = 0; j < listView.getCount(); j++) {
+                            listView.setItemChecked(j, isChecked);
+                        }
+                        neutral.setText(isChecked ? R.string.select_none : R.string.select_all);
+                    }
+                });
+                dialog.show();
                 break;
         }
         return super.onOptionsItemSelected(item);

@@ -68,6 +68,11 @@
     <string name="message_3"> For more information checkout this app on google play store: </string>
     <string name="fmt_floor">"Floor : "</string>
     <string name="noBookmark">No bookmarked session yet !!</string>
+    
+    <!--Schedule-->
+    <string name="filter_sessions">Filter sessions</string>
+    <string name="select_all">Select all</string>
+    <string name="select_none">Select none</string>
 
     <!--Session Details-->
     <string name="add_to_calendar">Add to Calendar</string>
