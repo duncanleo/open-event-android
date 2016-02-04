@@ -38,10 +38,6 @@ import java.util.List;
 public class ScheduleSessionDetailActivity extends BaseActivity {
     private static final String TAG = "Session Detail";
 
-    private RecyclerView speakersRecyclerView;
-
-    private SpeakersListAdapter adapter;
-
     private Session session;
 
     private String timings;
@@ -64,8 +60,6 @@ public class ScheduleSessionDetailActivity extends BaseActivity {
         TextView speakerTextView = (TextView) findViewById(R.id.session_speaker);
         TextView descriptionTextView = (TextView) findViewById(R.id.session_description);
         TextView addToCalendarTextView = (TextView)findViewById(R.id.session_addtocalendar);
-
-//        speakersRecyclerView = (RecyclerView) findViewById(R.id.list_speakerss);
 
         session = dbSingleton.getSessionbySessionname(title);
 
@@ -159,7 +153,7 @@ public class ScheduleSessionDetailActivity extends BaseActivity {
     }
 
     public void createNotification() {
-
+//        TODO: This notification still opens the session detail from the old design
         Calendar calendar = Calendar.getInstance();
         calendar.setTime(ISO8601Date.getTimeZoneDate(ISO8601Date.getDateObject(session.getStartTime())));
 
