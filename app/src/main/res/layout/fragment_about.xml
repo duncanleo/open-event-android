@@ -10,7 +10,7 @@
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="16dp"
         android:layout_marginBottom="16dp"
-        android:src="@drawable/ic_launcher"/>
+        android:src="@drawable/facebook"/>
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="@dimen/about_item_height"

@@ -3,7 +3,7 @@
         <!--TODO: Add schedule icon and string constant-->
         <item
             android:id="@+id/nav_schedule"
-            android:icon="@drawable/ic_launcher"
+            android:icon="@drawable/facebook"
             android:title="@string/menu_schedule"/>
         <item
             android:id="@+id/nav_tracks"

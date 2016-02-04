@@ -60,7 +60,7 @@ public class BookmarksFragment extends Fragment {
         Timber.i("Bookmarks Fragment create view");
         setHasOptionsMenu(true);
         View view = inflater.inflate(R.layout.fragment_bookmarks, container, false);
-        TextView noBookmarks = (TextView) view.findViewById(R.id.no_bookmark);
+        TextView noBookmarks = (TextView) view.findViewById(R.id.nobookmark);
         bookmarkedTracks = (RecyclerView) view.findViewById(R.id.list_bookmarks);
         DbSingleton dbSingleton = DbSingleton.getInstance();
 
