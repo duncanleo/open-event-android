@@ -11,7 +11,6 @@ import android.support.v4.view.MenuItemCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.SearchView;
 import android.text.TextUtils;
-import android.util.Log;
 import android.util.SparseArray;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -123,12 +122,9 @@ public class ScheduleFragment extends Fragment implements SearchView.OnQueryText
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
-            case R.id.share_tracks_url:
-                Intent intent = new Intent(Intent.ACTION_SEND);
-                intent.putExtra(Intent.EXTRA_TEXT, Urls.WEB_APP_URL_BASIC + Urls.TRACKS);
-                intent.putExtra(Intent.EXTRA_SUBJECT, R.string.share_links);
-                intent.setType("text/plain");
-                startActivity(Intent.createChooser(intent, getResources().getString(R.string.share_links)));
+            case R.id.action_filter_schedule:
+                System.out.println("Filter i shall!");
+                break;
         }
         return super.onOptionsItemSelected(item);
     }
@@ -136,8 +132,8 @@ public class ScheduleFragment extends Fragment implements SearchView.OnQueryText
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         menu.clear();
-        inflater.inflate(R.menu.menu_tracks, menu);
-        MenuItem item = menu.findItem(R.id.action_search_tracks);
+        inflater.inflate(R.menu.menu_schedule, menu);
+        MenuItem item = menu.findItem(R.id.action_search_schedule);
         searchView = (SearchView) MenuItemCompat.getActionView(item);
         searchView.setOnQueryTextListener(this);
         if (searchText != null) {

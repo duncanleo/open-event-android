@@ -55,8 +55,6 @@ public class SessionFragment extends Fragment {
         data = DbSingleton.getInstance().getSessionList();
 
         //TODO: Use database to filter
-
-//        Date day1 = new GregorianCalendar(2016, 3, 18).getTime();
         Iterator<Session> sessionIterator = data.iterator();
         while (sessionIterator.hasNext()) {
             Session s = sessionIterator.next();
