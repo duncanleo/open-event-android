@@ -29,6 +29,16 @@ public class AboutFragment extends Fragment {
         LinearLayout aboutRate = (LinearLayout)v.findViewById(R.id.about_rate);
         LinearLayout aboutSubscribe = (LinearLayout)v.findViewById(R.id.about_subscribe);
 
+        //UX fixes
+        aboutNotifMode.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                CheckBox cbox = (CheckBox)v.findViewById(R.id.about_notification_mode_checkbox);
+                cbox.setChecked(!cbox.isChecked());
+            }
+        });
+
+
         //Click handlers
         aboutWebsite.setOnClickListener(new View.OnClickListener() {
             @Override
