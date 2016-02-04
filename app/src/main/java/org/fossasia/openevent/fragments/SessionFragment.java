@@ -20,53 +20,52 @@ import android.view.ViewGroup;
 import org.fossasia.openevent.OpenEventApp;
 import org.fossasia.openevent.R;
 import org.fossasia.openevent.activities.ScheduleSessionDetailActivity;
-import org.fossasia.openevent.activities.SessionDetailActivity;
 import org.fossasia.openevent.adapters.ScheduleSessionsListAdapter;
-import org.fossasia.openevent.adapters.SessionsListAdapter;
 import org.fossasia.openevent.api.Urls;
 import org.fossasia.openevent.data.Session;
-import org.fossasia.openevent.dbutils.DbContract;
 import org.fossasia.openevent.dbutils.DbSingleton;
+import org.fossasia.openevent.utils.ISO8601Date;
 import org.fossasia.openevent.utils.IntentStrings;
 import org.fossasia.openevent.utils.RecyclerItemClickListener;
 import org.fossasia.openevent.utils.SimpleDividerItemDecoration;
 
-import java.util.ArrayList;
+import java.util.Date;
+import java.util.GregorianCalendar;
+import java.util.Iterator;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 /**
  * Created by duncanleo on 1/2/16.
  */
-public class SessionFragment extends Fragment implements SearchView.OnQueryTextListener {
-    final private String SEARCH = "searchText";
-    private String searchText = "";
-    private SearchView searchView;
+public class SessionFragment extends Fragment {
+    //TODO: Set to the actual first day of the event
+    public static final long FIRST_DAY_MILLIS = new GregorianCalendar(2015, 4, 5).getTime().getTime();
 
     private RecyclerView sessionsRecyclerView;
     private ScheduleSessionsListAdapter sessionsListAdapter;
     private List<Session> data;
+    private int tabPos;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
-        setHasOptionsMenu(true);
-        OpenEventApp.getEventBus().register(this);
         super.onCreate(savedInstanceState);
+
+        tabPos = getArguments().getInt(ScheduleFragment.SCHEDULE_TAB_POSITION);
         data = DbSingleton.getInstance().getSessionList();
-//        data = getArguments().getParcelableArrayList("data");
 
-        if (savedInstanceState != null && savedInstanceState.getString(SEARCH) != null) {
-            searchText = savedInstanceState.getString(SEARCH);
-        }
-    }
+        //TODO: Use database to filter
 
-    @Override
-    public void onSaveInstanceState(Bundle bundle) {
-        if (isAdded()) {
-            if (searchView != null) {
-                bundle.putString(SEARCH, searchText);
+//        Date day1 = new GregorianCalendar(2016, 3, 18).getTime();
+        Iterator<Session> sessionIterator = data.iterator();
+        while (sessionIterator.hasNext()) {
+            Session s = sessionIterator.next();
+            Date d = ISO8601Date.getDateObject(s.getStartTime());
+            long diff = d.getTime() - FIRST_DAY_MILLIS;
+            if (TimeUnit.MILLISECONDS.toDays(diff) != tabPos) {
+                sessionIterator.remove();
             }
         }
-        super.onSaveInstanceState(bundle);
     }
 
     @Nullable
@@ -75,7 +74,7 @@ public class SessionFragment extends Fragment implements SearchView.OnQueryTextL
         View v = inflater.inflate(R.layout.fragment_session, container, false);
         sessionsRecyclerView = (RecyclerView)v.findViewById(R.id.sessionRecyclerView);
         sessionsRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-        sessionsListAdapter = new ScheduleSessionsListAdapter(data);
+        sessionsListAdapter = new ScheduleSessionsListAdapter(data, tabPos);
         sessionsRecyclerView.setAdapter(sessionsListAdapter);
         sessionsRecyclerView.setItemAnimator(new DefaultItemAnimator());
         sessionsRecyclerView.addItemDecoration(new SimpleDividerItemDecoration(getActivity().getResources()));
@@ -90,45 +89,7 @@ public class SessionFragment extends Fragment implements SearchView.OnQueryTextL
         return v;
     }
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case R.id.share_tracks_url:
-                Intent intent = new Intent(Intent.ACTION_SEND);
-                intent.putExtra(Intent.EXTRA_TEXT, Urls.WEB_APP_URL_BASIC + Urls.TRACKS);
-                intent.putExtra(Intent.EXTRA_SUBJECT, R.string.share_links);
-                intent.setType("text/plain");
-                startActivity(Intent.createChooser(intent, getResources().getString(R.string.share_links)));
-        }
-        return super.onOptionsItemSelected(item);
-    }
-
-    @Override
-    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-        menu.clear();
-        inflater.inflate(R.menu.menu_tracks, menu);
-        MenuItem item = menu.findItem(R.id.action_search_tracks);
-        searchView = (SearchView) MenuItemCompat.getActionView(item);
-        searchView.setOnQueryTextListener(this);
-        if (searchText != null) {
-            searchView.setQuery(searchText, false);
-        }
-        super.onCreateOptionsMenu(menu, inflater);
-    }
-
-    @Override
-    public boolean onQueryTextChange(String query) {
-        if (!TextUtils.isEmpty(query)) {
-            searchText = query;
-            sessionsListAdapter.getFilter().filter(searchText);
-        } else {
-            sessionsListAdapter.refresh();
-        }
-        return true;
-    }
-
-    @Override
-    public boolean onQueryTextSubmit(String query) {
-        return false;
+    public ScheduleSessionsListAdapter getSessionsListAdapter() {
+        return sessionsListAdapter;
     }
 }

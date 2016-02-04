@@ -28,4 +28,9 @@
         <item>#2A9DFD</item>
         <item>#AE65E1</item>
     </array>
+    <array name="days">
+        <item>Day 1</item>
+        <item>Day 2</item>
+        <item>Day 3</item>
+    </array>
 </resources>

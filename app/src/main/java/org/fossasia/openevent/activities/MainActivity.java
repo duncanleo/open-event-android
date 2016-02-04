@@ -238,7 +238,7 @@ public class MainActivity extends BaseActivity {
         switch (menuItemId) {
             case R.id.nav_schedule:
                 fragmentManager.beginTransaction()
-                        .replace(R.id.content_frame, new SessionFragment(), FRAGMENT_TAG).commit();
+                        .replace(R.id.content_frame, new ScheduleFragment(), FRAGMENT_TAG).commit();
                 getSupportActionBar().setTitle(R.string.menu_schedule);
                 break;
             case R.id.nav_tracks:
