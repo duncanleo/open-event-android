@@ -8,7 +8,9 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CheckBox;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 
 import org.fossasia.openevent.R;
 
@@ -21,12 +23,14 @@ public class AboutFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_about, container, false);
 
-        LinearLayout moreWebsite = (LinearLayout)v.findViewById(R.id.more_website);
-        LinearLayout moreTwitter = (LinearLayout)v.findViewById(R.id.more_twitter);
-        LinearLayout moreRate = (LinearLayout)v.findViewById(R.id.more_rate);
-        LinearLayout moreSubscribe = (LinearLayout)v.findViewById(R.id.more_subscribe);
+        RelativeLayout aboutNotifMode = (RelativeLayout)v.findViewById(R.id.about_notification_mode);
+        LinearLayout aboutWebsite = (LinearLayout)v.findViewById(R.id.about_website);
+        LinearLayout aboutTwitter = (LinearLayout)v.findViewById(R.id.about_twitter);
+        LinearLayout aboutRate = (LinearLayout)v.findViewById(R.id.about_rate);
+        LinearLayout aboutSubscribe = (LinearLayout)v.findViewById(R.id.about_subscribe);
 
-        moreWebsite.setOnClickListener(new View.OnClickListener() {
+        //Click handlers
+        aboutWebsite.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent i = new Intent(Intent.ACTION_VIEW);
@@ -35,7 +39,7 @@ public class AboutFragment extends Fragment {
             }
         });
 
-        moreTwitter.setOnClickListener(new View.OnClickListener() {
+        aboutTwitter.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = null;

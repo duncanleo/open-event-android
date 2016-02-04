@@ -12,6 +12,7 @@
         android:layout_marginBottom="16dp"
         android:src="@drawable/facebook"/>
     <RelativeLayout
+        android:id="@+id/about_notification_mode"
         android:layout_width="match_parent"
         android:layout_height="@dimen/about_item_height"
         android:paddingTop="8dp"
@@ -27,13 +28,14 @@
             android:layout_centerVertical="true"
             android:text="@string/settings_mode_notification"/>
         <CheckBox
+            android:id="@+id/about_notification_mode_checkbox"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
             android:layout_alignParentRight="true"/>
     </RelativeLayout>
     <LinearLayout
-        android:id="@+id/more_website"
+        android:id="@+id/about_website"
         android:layout_width="match_parent"
         android:layout_height="@dimen/about_item_height"
         android:paddingTop="8dp"
@@ -55,7 +57,7 @@
             android:text="2016.fossasia.com"/>
     </LinearLayout>
     <LinearLayout
-        android:id="@+id/more_twitter"
+        android:id="@+id/about_twitter"
         android:layout_width="match_parent"
         android:layout_height="@dimen/about_item_height"
         android:paddingTop="8dp"
@@ -77,7 +79,7 @@
             android:text="\@fossasia"/>
     </LinearLayout>
     <LinearLayout
-        android:id="@+id/more_rate"
+        android:id="@+id/about_rate"
         android:layout_width="match_parent"
         android:layout_height="@dimen/about_item_height"
         android:paddingTop="8dp"
@@ -99,7 +101,7 @@
             android:text="Rate Fossasia"/>
     </LinearLayout>
     <LinearLayout
-        android:id="@+id/more_subscribe"
+        android:id="@+id/about_subscribe"
         android:layout_width="match_parent"
         android:layout_height="@dimen/about_item_height"
         android:paddingTop="8dp"
