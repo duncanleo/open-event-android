@@ -15,6 +15,6 @@
     <color name="item_session_divider">#A3A3A5</color>
 
     <color name="session_description">#212224</color>
-
+    <color name="session_detail_speaker">#5B5E6B</color>
     <color name="more_background">#EFEFF4</color>
 </resources>

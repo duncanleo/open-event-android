@@ -12,6 +12,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import org.fossasia.openevent.R;
+import org.fossasia.openevent.activities.ScheduleSessionDetailActivity;
 import org.fossasia.openevent.activities.SessionDetailActivity;
 import org.fossasia.openevent.adapters.ScheduleSessionsListAdapter;
 import org.fossasia.openevent.adapters.SessionsListAdapter;
@@ -51,7 +52,7 @@ public class SessionFragment extends Fragment {
         sessionsRecyclerView.addOnItemTouchListener(new RecyclerItemClickListener(getActivity(), new RecyclerItemClickListener.OnItemClickListener() {
             @Override
             public void onItemClick(View view, int position) {
-                Intent intent = new Intent(getActivity(), SessionDetailActivity.class);
+                Intent intent = new Intent(getActivity(), ScheduleSessionDetailActivity.class);
                 intent.putExtra(IntentStrings.SESSION, data.get(position).getTitle());
                 startActivity(intent);
             }
