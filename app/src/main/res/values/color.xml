@@ -17,4 +17,5 @@
     <color name="session_description">#212224</color>
     <color name="session_detail_speaker">#5B5E6B</color>
     <color name="more_background">#EFEFF4</color>
+    <color name="about_item_pressed">#BFBFBF</color>
 </resources>
