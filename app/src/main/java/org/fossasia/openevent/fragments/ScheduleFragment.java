@@ -63,7 +63,7 @@ public class ScheduleFragment extends Fragment implements SearchView.OnQueryText
         View v = inflater.inflate(R.layout.fragment_schedule, container, false);
         scheduleTabLayout = (TabLayout)v.findViewById(R.id.schedule_tab_layout);
         scheduleViewPager = (ViewPager)v.findViewById(R.id.schedule_view_pager);
-        viewPagerAdapter = new ScheduleViewPagerAdapter(getActivity().getSupportFragmentManager());
+        viewPagerAdapter = new ScheduleViewPagerAdapter(getChildFragmentManager());
         scheduleViewPager.setAdapter(viewPagerAdapter);
         scheduleTabLayout.setupWithViewPager(scheduleViewPager);
         return v;
