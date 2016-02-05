@@ -35,6 +35,7 @@ public class AboutFragment extends Fragment {
             public void onClick(View v) {
                 CheckBox cbox = (CheckBox)v.findViewById(R.id.about_notification_mode_checkbox);
                 cbox.setChecked(!cbox.isChecked());
+                //TODO: Notification mode toggle
             }
         });
 
@@ -43,6 +44,7 @@ public class AboutFragment extends Fragment {
         aboutWebsite.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                //TODO: Website link
                 Intent i = new Intent(Intent.ACTION_VIEW);
                 i.setData(Uri.parse("http://2016.fossasia.com"));
                 startActivity(i);
@@ -52,17 +54,32 @@ public class AboutFragment extends Fragment {
         aboutTwitter.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = null;
+                //TODO: Twitter link
+                Intent intent;
                 try {
                     // get the Twitter app if possible
                     getActivity().getPackageManager().getPackageInfo("com.twitter.android", 0);
-                    intent = new Intent(Intent.ACTION_VIEW, Uri.parse("twitter://user?user_id=@fossasia"));
+                    intent = new Intent(Intent.ACTION_VIEW, Uri.parse("twitter://user?user_id=fossasia"));
                     intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 } catch (Exception e) {
                     // no Twitter app, revert to browser
                     intent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://twitter.com/fossasia"));
                 }
                 startActivity(intent);
+            }
+        });
+
+        aboutRate.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //TODO: Rate app link
+            }
+        });
+
+        aboutSubscribe.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // TODO: Subscribe link
             }
         });
 
